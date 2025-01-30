@@ -2,7 +2,7 @@
 
 import pathlib
 
-from crysgen.elemental import GenElemental
+from crysgen.generate import GenElemental
 from crysgen.structure import BaseExpander, BaseStructure
 
 cwd = pathlib.Path(__file__).parent
