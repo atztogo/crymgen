@@ -611,12 +611,12 @@ class BaseStructure:
             raise ValueError("Space group number is not consistent with the dataset.")
         self._space_group_number = spg_num
 
-    def find_symmetry_dataset(self) -> "BaseStructure":
+    def find_symmetry_dataset(self, tol: float = 1e-5) -> "BaseStructure":
         """Run spglib."""
         from spglib import get_symmetry_dataset
 
         cell = (self._lattice, self._points, self._numbers)
-        self._dataset = get_symmetry_dataset(cell)
+        self._dataset = get_symmetry_dataset(cell, symprec=tol)
         self.space_group_number = self._dataset.number
         return self
 
