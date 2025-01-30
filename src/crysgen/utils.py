@@ -1,6 +1,17 @@
 """Utility functions for crystal generation."""
 
+import io
+import os
+import pathlib
+from typing import Union
+
 import numpy as np
+import yaml
+
+try:
+    from yaml import CLoader as Loader
+except ImportError:
+    from yaml import Loader
 
 
 def get_cell_matrix(
@@ -47,3 +58,53 @@ def get_cell_matrix(
     lattice[1] = np.array([b1, b2, b3]) * b
     lattice[2] = np.array([c1, c2, c3]) * c
     return lattice
+
+
+def get_io_module_to_decompress(filename):
+    """Return io-module to decompress file.
+
+    This function came from phonopy (BSD3 License).
+
+    Filename extensions of lzma, xz, gzip, bz2 are supported.
+
+    It is supported to use it like `returned_module.open(filename)`.
+
+    """
+    ext = pathlib.Path(filename).suffix
+    if ext == ".xz" or ext == ".lzma":
+        import lzma
+
+        return lzma
+    elif ext == ".gz":
+        import gzip
+
+        return gzip
+    elif ext == ".bz2":
+        import bz2
+
+        return bz2
+    else:
+        import io
+
+        return io
+
+
+def load_yaml(fp: Union[str, bytes, os.PathLike, io.IOBase]):
+    """Load yaml file.
+
+    Parameters
+    ----------
+    fp : str, bytes, os.PathLike or io.IOBase
+        Filename, file path, or file stream.
+
+    lzma and gzip comppressed non-stream files can be loaded.
+
+    """
+    if isinstance(fp, io.IOBase):
+        yaml_data = yaml.load(fp, Loader=Loader)
+    else:
+        myio = get_io_module_to_decompress(fp)
+        with myio.open(fp) as f:
+            yaml_data = yaml.load(f, Loader=Loader)
+
+    return yaml_data
