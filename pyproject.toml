@@ -21,7 +21,7 @@ license = {file = "LICENSE"}
 "Homepage" = "https://github.com/atztogo/crysgen"
 
 [tool.setuptools.dynamic]
-version = { attr = "symfc.version.__version__" }
+version = { attr = "crysgen.version.__version__" }
 
 [tool.ruff]
 line-length = 88
