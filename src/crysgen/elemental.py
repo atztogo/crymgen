@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from crysgen.base_generator import BaseGenerator, CrystalSystemLiteral
+from crysgen.structure import BaseGenerator, CrystalSystemLiteral
 
 
 class GenElemental(BaseGenerator):

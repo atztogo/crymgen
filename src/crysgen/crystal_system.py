@@ -75,6 +75,11 @@ class BaseCrystalSystem:
             self.a, self.b, self.c, self.alpha, self.beta, self.gamma
         )
 
+    @classmethod
+    def get_spg_numbers(self) -> tuple[int]:
+        """Return the space group numbers."""
+        return tuple(range(self._SPG_NUMBER_RANGE[0], self._SPG_NUMBER_RANGE[1]))
+
     def _set_a(self, a: float):
         self._a = float(a)
 
