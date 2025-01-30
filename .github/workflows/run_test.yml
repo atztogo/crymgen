@@ -3,8 +3,8 @@ name: Run crysgen tests
 on:
   push:
     branches: [ test ]
-#   pull_request:
-#     branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
 
 jobs:
   build-linux:
