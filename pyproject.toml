@@ -10,10 +10,10 @@ description = "This is the crysgen module."
 authors = [
     {name = "Atsushi Togo", email = "atztogo@gmail.com"}
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = [
     "numpy",
-    "spglib",
+    "spglib >= 2.5",
 ]
 license = {file = "LICENSE"}
 

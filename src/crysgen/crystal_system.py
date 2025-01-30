@@ -2,6 +2,10 @@
 
 from typing import Optional
 
+import numpy as np
+
+from crysgen.utils import get_cell_matrix
+
 
 class BaseCrystalSystem:
     """Base class for crystal systems."""
@@ -58,6 +62,19 @@ class BaseCrystalSystem:
         """Return the angle gamma."""
         return self._gamma
 
+    @property
+    def lattice(self) -> np.ndarray:
+        """Return basis vectors."""
+        assert self.a is not None
+        assert self.b is not None
+        assert self.c is not None
+        assert self.alpha is not None
+        assert self.beta is not None
+        assert self.gamma is not None
+        return get_cell_matrix(
+            self.a, self.b, self.c, self.alpha, self.beta, self.gamma
+        )
+
     def _set_a(self, a: float):
         self._a = float(a)
 
@@ -86,6 +103,8 @@ class Triclinic(BaseCrystalSystem):
     _DEFAULT_ALPHA = 103.0
     _DEFAULT_BETA_OVER_ALPHA = 1.1
     _DEFAULT_GAMMA_OVER_ALPHA = 1.2
+
+    _SPG_NUMBER_RANGE = (1, 3)  # 1-2
 
     def __init__(
         self,
@@ -136,6 +155,8 @@ class Monoclinic(BaseCrystalSystem):
     _DEFAULT_C_OVER_A = 1.2
     _DEFAULT_BETA_OVER_ALPHA = 1.1
 
+    _SPG_NUMBER_RANGE = (3, 16)  # 3-15
+
     def __init__(
         self,
         a: Optional[float] = None,
@@ -176,6 +197,8 @@ class Orthorhombic(BaseCrystalSystem):
     _DEFAULT_B_OVER_A = 1.1
     _DEFAULT_C_OVER_A = 1.2
 
+    _SPG_NUMBER_RANGE = (16, 75)  # 16-74
+
     def __init__(
         self,
         a: Optional[float] = None,
@@ -211,6 +234,8 @@ class Tetragonal(BaseCrystalSystem):
     _DEFAULT_A = 10.0
     _DEFAULT_C_OVER_A = 1.1
 
+    _SPG_NUMBER_RANGE = (75, 143)  # 75-142
+
     def __init__(
         self,
         a: Optional[float] = None,
@@ -242,6 +267,8 @@ class Trigonal(BaseCrystalSystem):
     _DEFAULT_A = 10.0
     _DEFAULT_C_OVER_A = 1.1
 
+    _SPG_NUMBER_RANGE = (143, 168)  # 143-167
+
     def __init__(
         self,
         a: Optional[float] = None,
@@ -263,8 +290,8 @@ class Trigonal(BaseCrystalSystem):
         else:
             self._set_c(c)
         self._set_alpha(90)
-        self._set_beta(120)
-        self._set_gamma(90)
+        self._set_beta(90)
+        self._set_gamma(120)
 
 
 class Hexagonal(BaseCrystalSystem):
@@ -273,6 +300,8 @@ class Hexagonal(BaseCrystalSystem):
     _DEFAULT_A = 10.0
     _DEFAULT_C_OVER_A = 1.1
 
+    _SPG_NUMBER_RANGE = (168, 195)  # 168-194
+
     def __init__(
         self,
         a: Optional[float] = None,
@@ -294,14 +323,16 @@ class Hexagonal(BaseCrystalSystem):
         else:
             self._set_c(c)
         self._set_alpha(90)
-        self._set_beta(120)
-        self._set_gamma(90)
+        self._set_beta(90)
+        self._set_gamma(120)
 
 
 class Cubic(BaseCrystalSystem):
     """Class for cubic crystal system."""
 
     _DEFAULT_A = 10.0
+
+    _SPG_NUMBER_RANGE = (195, 231)  # 195-230
 
     def __init__(
         self,

@@ -62,6 +62,9 @@ def test_orthorhombic():
     assert orthorhombic.a == pytest.approx(1)
     assert orthorhombic.b == pytest.approx(2)
     assert orthorhombic.c == pytest.approx(3)
+    assert orthorhombic.alpha == pytest.approx(90)
+    assert orthorhombic.beta == pytest.approx(90)
+    assert orthorhombic.gamma == pytest.approx(90)
 
 
 def test_orthorhombic_default():
@@ -70,6 +73,9 @@ def test_orthorhombic_default():
     assert orthorhombic.a == pytest.approx(10)
     assert orthorhombic.b == pytest.approx(11)
     assert orthorhombic.c == pytest.approx(12)
+    assert orthorhombic.alpha == pytest.approx(90)
+    assert orthorhombic.beta == pytest.approx(90)
+    assert orthorhombic.gamma == pytest.approx(90)
 
 
 def test_tetragonal():
@@ -78,6 +84,9 @@ def test_tetragonal():
     assert tetragonal.a == pytest.approx(1)
     assert tetragonal.b == pytest.approx(1)
     assert tetragonal.c == pytest.approx(3)
+    assert tetragonal.alpha == pytest.approx(90)
+    assert tetragonal.beta == pytest.approx(90)
+    assert tetragonal.gamma == pytest.approx(90)
 
 
 def test_tetragonal_default():
@@ -86,6 +95,9 @@ def test_tetragonal_default():
     assert tetragonal.a == pytest.approx(10)
     assert tetragonal.b == pytest.approx(10)
     assert tetragonal.c == pytest.approx(11)
+    assert tetragonal.alpha == pytest.approx(90)
+    assert tetragonal.beta == pytest.approx(90)
+    assert tetragonal.gamma == pytest.approx(90)
 
 
 def test_hexagonal():
@@ -94,6 +106,9 @@ def test_hexagonal():
     assert hexagonal.a == pytest.approx(1)
     assert hexagonal.b == pytest.approx(1)
     assert hexagonal.c == pytest.approx(3)
+    assert hexagonal.alpha == pytest.approx(90)
+    assert hexagonal.beta == pytest.approx(90)
+    assert hexagonal.gamma == pytest.approx(120)
 
 
 def test_hexagonal_default():
@@ -102,6 +117,9 @@ def test_hexagonal_default():
     assert hexagonal.a == pytest.approx(10)
     assert hexagonal.b == pytest.approx(10)
     assert hexagonal.c == pytest.approx(11)
+    assert hexagonal.alpha == pytest.approx(90)
+    assert hexagonal.beta == pytest.approx(90)
+    assert hexagonal.gamma == pytest.approx(120)
 
 
 def test_cubic():
@@ -110,6 +128,9 @@ def test_cubic():
     assert cubic.a == pytest.approx(1)
     assert cubic.b == pytest.approx(1)
     assert cubic.c == pytest.approx(1)
+    assert cubic.alpha == pytest.approx(90)
+    assert cubic.beta == pytest.approx(90)
+    assert cubic.gamma == pytest.approx(90)
 
 
 def test_cubic_default():
@@ -118,3 +139,6 @@ def test_cubic_default():
     assert cubic.a == pytest.approx(10)
     assert cubic.b == pytest.approx(10)
     assert cubic.c == pytest.approx(10)
+    assert cubic.alpha == pytest.approx(90)
+    assert cubic.beta == pytest.approx(90)
+    assert cubic.gamma == pytest.approx(90)
