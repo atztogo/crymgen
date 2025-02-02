@@ -2,7 +2,7 @@
 
 import pytest
 
-from crysgen.crystal_system import (
+from crymgen.crystal_system import (
     Cubic,
     Hexagonal,
     Monoclinic,

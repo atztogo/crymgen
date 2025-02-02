@@ -4,8 +4,8 @@ import pathlib
 
 import pytest
 
-from crysgen.generate import BaseGenerator
-from crysgen.structure import BaseExpander, BaseStructure
+from crymgen.generate import BaseGenerator
+from crymgen.structure import BaseExpander, BaseStructure
 
 cwd = pathlib.Path(__file__).parent
 

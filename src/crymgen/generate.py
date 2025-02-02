@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import get_args
 
-from crysgen.crystal_system import (
+from crymgen.crystal_system import (
     BaseCrystalSystem,
     Cubic,
     Hexagonal,
@@ -14,7 +14,7 @@ from crysgen.crystal_system import (
     Triclinic,
     Trigonal,
 )
-from crysgen.structure import BaseStructure, CrystalSystemLiteral
+from crymgen.structure import BaseStructure, CrystalSystemLiteral
 
 
 class BaseGenerator(BaseStructure):

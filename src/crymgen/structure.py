@@ -8,7 +8,7 @@ from typing import Literal, Optional, Sequence, TypeAlias, Union
 
 import numpy as np
 
-from crysgen.utils import load_yaml
+from crymgen.utils import load_yaml
 
 CrystalSystemLiteral: TypeAlias = Literal[
     "triclinic",

@@ -4,7 +4,7 @@ from typing import Optional
 
 import numpy as np
 
-from crysgen.utils import get_cell_matrix
+from crymgen.utils import get_cell_matrix
 
 
 class BaseCrystalSystem:
