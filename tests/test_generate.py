@@ -1,5 +1,7 @@
 """Tests for the elemental system."""
 
+from __future__ import annotations
+
 import pathlib
 
 import pytest
@@ -25,13 +27,49 @@ def test_gen_binary():
 @pytest.mark.parametrize("tol", [1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6])
 def test_expand_binary(tol: float):
     """Test BaseGenerator class for binary system."""
+    for crystal_system, bs in _generate_binary_crystal_structures(tol):
+        filename = (
+            cwd / f"data/binary/{crystal_system}/unitcell_{bs.space_group_number}.yaml"
+        )
+        bs_ref = BaseStructure().load_structure(filename)
+        assert (
+            bs_ref.find_symmetry_dataset().space_group_number == bs.space_group_number
+        )
+        assert bs_ref.space_group_number == bs.space_group_number
+
+    # print("Finally found space group structures", len(structure_list))
+
+
+@pytest.mark.gendata
+def test_generate_data_for_expand_binary():
+    """Generate text data of crystal structures for binary system."""
+    for crystal_system, bs in _generate_binary_crystal_structures(1e-5):
+        filename = (
+            cwd / f"data/binary/{crystal_system}/unitcell_{bs.space_group_number}.yaml"
+        )
+        with open(filename, "w") as f:
+            print(
+                f"Structure for space group number: {bs.space_group_number} "
+                f"is save to {filename}."
+            )
+            print(bs, file=f)
+
+
+def _generate_binary_crystal_structures(tol: float):
+    """Generate crystal structures for binary system.
+
+    [[0.3719972, 0.40875639, 0.06329474], [0.515574, 0.1637679, 0.56800529]]
+
+    These numbers were used to generate crystal structures covering all 230
+    space group types. They were determined empirically through trial and error.
+
+    """
     crystal_systems = BaseGenerator.CRYSTAL_SYSTEMS
 
     points = [[0.3719972, 0.40875639, 0.06329474], [0.515574, 0.1637679, 0.56800529]]
-    structure_list = []
-    for val in crystal_systems:
-        structure_list = []
-        gm = BaseGenerator(val)
+
+    for crystal_system in crystal_systems:
+        gm = BaseGenerator(crystal_system)
         gm.points = points
         gm.numbers = [1, 2]
 
@@ -41,30 +79,10 @@ def test_expand_binary(tol: float):
             be.expand()
             bs = BaseStructure().set_structure(be)
             bs.find_symmetry_dataset(tol=tol)
-            if bs.space_group_number == spg_num:
-                structure_list.append(bs)
+            assert bs.space_group_number == spg_num
+            _check_distance(bs)
 
-            filename = (
-                cwd / f"data/binary/{val}/unitcell_{bs.space_group_number}.yaml.xz"
-            )
-            bs_ref = BaseStructure().load_structure(filename)
-            assert (
-                bs_ref.find_symmetry_dataset().space_group_number
-                == bs.space_group_number
-            )
-            assert bs_ref.space_group_number == bs.space_group_number
-
-            # _check_distance(bs)
-
-        # print("Finally found space group structures", len(structure_list))
-        # for bs in structure_list:
-        #     filename = cwd / f"data/binary/{val}/unitcell_{bs.space_group_number}.yaml"
-        #     with open(filename, "w") as f:
-        #         print(
-        #             f"Structure for space group number: {bs.space_group_number} "
-        #             f"is save to {filename}."
-        #         )
-        #         print(bs, file=f)
+            yield crystal_system, bs
 
 
 def _check_distance(bs: BaseStructure):
